@@ -1,4 +1,16 @@
 <?php
+/**
+ * VehicleData.co demo
+ *
+ * Please go to www.vehicledata.co to request an API key and secret. Once you you have
+ * those plugged in below, this script can be run by calling:
+ *
+ *     php demo.php
+ *
+ * Take a look at the output of service.getSupportedFunctions or browse the API docs
+ * at www.vehicledata.co to learn more.
+ */
+
 require_once "vehicledataco.php";
 
 $appkey = "YOUR_APPKEY_HERE";
