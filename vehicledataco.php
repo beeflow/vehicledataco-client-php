@@ -53,7 +53,7 @@ class VehicleDataCo {
     public function makes_getInfo($make) {
         if (!$this->isInitialized()) return;
         $args = array("make" => $make);
-        return $this->doCall("makes.getInfo");
+        return $this->doCall("makes.getInfo", $args);
     }
 
     /**
