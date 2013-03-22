@@ -114,8 +114,8 @@ class VehicleDataCo {
      *
      * @param  year  the year for which styles & trims are desired
      * @param  make  the make for which styles & trims are desired
-     * @param  model the make for which styles & trims are desired
-     * @param  trim  the trim for which styles are desired
+     * @param  model the model for which styles & trims are desired
+     * @param  trim  the trim for which styles are desired (optional)
      * @return       JSON string of list of styles
      */
     public function vehicles_getStyleTrims($year, $make, $model, $trim = "") {
@@ -135,7 +135,7 @@ class VehicleDataCo {
      * @param  make  the make for which transmission types are desired
      * @param  model the make for which transmission types are desired
      * @param  trim  the trim for which transmission types are desired
-     * @return       JSON string of list of trims
+     * @return       JSON string of list of transmission types
      */
     public function vehicles_getTransmissions($year, $make, $model, $style, $trim) {
         if (!$this->isInitialized()) return;
