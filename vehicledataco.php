@@ -109,14 +109,15 @@ class VehicleDataCo {
     }
 
     /**
-     * Returns a list of style and trims combinations of the model, make and year provided.
-     * optionally, a trim can also be passed in, thus returning only unique styles.
+     * Returns a list of style, trim and transmission combinations of the model, make
+     * and year provided. Optionally, a trim can also be passed in, thus returning only
+     * unique styles. The return array is indexed by unique IDs for each combination.
      *
      * @param  year  the year for which styles & trims are desired
      * @param  make  the make for which styles & trims are desired
      * @param  model the model for which styles & trims are desired
      * @param  trim  the trim for which styles are desired (optional)
-     * @return       JSON string of list of styles
+     * @return       JSON string of list of styles indexed by unique ID
      */
     public function vehicles_getStyleTrims($year, $make, $model, $trim = "") {
         if (!$this->isInitialized()) return;
@@ -135,7 +136,7 @@ class VehicleDataCo {
      * @param  make  the make for which transmission types are desired
      * @param  model the make for which transmission types are desired
      * @param  trim  the trim for which transmission types are desired
-     * @return       JSON string of list of transmission types
+     * @return       JSON string of list of transmission types indexed by unique ID
      */
     public function vehicles_getTransmissions($year, $make, $model, $style, $trim) {
         if (!$this->isInitialized()) return;
