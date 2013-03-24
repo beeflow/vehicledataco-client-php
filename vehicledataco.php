@@ -11,6 +11,8 @@
  * Copyright 2013 Blacktop Ventures LLC
  */
 
+const VEHICLEDATACO_CLIENT_VERSION = "0.1";
+
 class VehicleDataCo {
 
     /**
@@ -23,10 +25,13 @@ class VehicleDataCo {
      * @return         an initialized object to access the VehicleDataCo service
      */
     function __construct($appkey, $secret, $version = "") {
+        $this->clientVersion = VEHICLEDATACO_CLIENT_VERSION;
         $this->version = "0.1";
         $this->host = "api.vehicledata.co";
         $this->appkey = $appkey;
         $this->secret = $secret;
+
+        $this->ch = curl_init();
 
         if ($version != "")
             $this->version = $version;
@@ -149,11 +154,20 @@ class VehicleDataCo {
     }
 
     /**
+     * Return the client version
+     *
+     * @return string of client version
+     */
+    public function getClientVersion() {
+        return $this->clientVersion;
+    }
+
+    /**
      * Checks whether the object has been successfully initialized.
      *
      * @return true/false of object initialization status
      */
-    private function isInitialized() {
+    public function isInitialized() {
         if (!isset($this->initialized) || $this->initialized != true)
             return false;
         return true;
@@ -189,10 +203,16 @@ class VehicleDataCo {
         $hash = $this->getHash($uri);
         $url = "http://" . $this->host . "/?" . $uri . "&hash=" . $this->encodeURIComponent($hash);
 
-        try {
-            $json = file_get_contents($url);
-        } catch (Exception $e) {
-            return null;
+        curl_setopt($this->ch, CURLOPT_URL, $url);
+        curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT_MS, 5000);
+        $json = curl_exec($this->ch);
+
+        // false is returned if there's no connectivity
+        if (!$json) {
+            return (json_encode(array("status" => "fail",
+                "error" => "-1",
+                "message" => "Unabled to connect to API at " . $this->host)));
         }
 
         return $json;
