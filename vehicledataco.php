@@ -195,11 +195,10 @@ class VehicleDataCo {
         $vars = array ("app" => $this->appkey,
             "v" => $this->version,
             "t" => time(),
-             "f" => $function,
-             "a" => $args);
+            "f" => $function,
+            "a" => $args);
 
         $uri = http_build_query($vars);
-        $s = utf8_encode($uri);
         $hash = $this->getHash($uri);
         $url = "http://" . $this->host . "/?" . $uri . "&hash=" . $this->encodeURIComponent($hash);
 
