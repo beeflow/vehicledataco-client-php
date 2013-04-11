@@ -43,6 +43,10 @@ $ret = $vdc->vehicles_getTransmissions(2008, 'Audi', 'A4', 'sedan', '2.0T quattr
 echo json_pretty_print($ret);
 */
 
+echo "\nDecode VIN 1NXBU40E39Z099060:\n";
+$ret = $vdc->vin_decode('1NXBU40E39Z099060');
+echo json_pretty_print($ret);
+
 function json_pretty_print($json) {
 
     $result      = '';

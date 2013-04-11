@@ -11,7 +11,7 @@
  * Copyright 2013 Blacktop Ventures LLC
  */
 
-const VEHICLEDATACO_CLIENT_VERSION = "0.1";
+const VEHICLEDATACO_CLIENT_VERSION = "0.2";
 
 class VehicleDataCo {
 
@@ -26,7 +26,7 @@ class VehicleDataCo {
      */
     function __construct($appkey, $secret, $version = "") {
         $this->clientVersion = VEHICLEDATACO_CLIENT_VERSION;
-        $this->version = "0.1";
+        $this->version = "0.2";
         $this->host = "api.vehicledata.co";
         $this->appkey = $appkey;
         $this->secret = $secret;
@@ -154,6 +154,18 @@ class VehicleDataCo {
     }
 
     /**
+     * Takes a VIN and returns details about the car
+     *
+     * @param  year  the year for which transmission types are desired
+     * @return       JSON string with decoded VIN information
+     */
+    public function vin_decode($vin) {
+        if (!$this->isInitialized()) return;
+        $args = array("vin" => $vin);
+        return $this->doCall("vin.decode", $args);
+    }
+
+    /**
      * Return the client version
      *
      * @return string of client version
@@ -211,7 +223,7 @@ class VehicleDataCo {
         if (!$json) {
             return (json_encode(array("status" => "fail",
                 "error" => "-1",
-                "message" => "Unabled to connect to API at " . $this->host)));
+                "message" => "Unable to connect to API at " . $this->host)));
         }
 
         return $json;
